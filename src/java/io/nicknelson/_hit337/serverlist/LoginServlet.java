@@ -26,15 +26,14 @@ public class LoginServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
     
-    PrintWriter out = response.getWriter();
-    
-    out.print("<html><head></head><body>");
-    out.print("<h1>Login</h1>");
-    out.print("<form action=\"./login\" method=\"POST\">");
-    out.print("<label>Username: <input type=\"text\" name=\"username\"></label>");
-    out.print("<input type=\"submit\" value=\"Submit\">");
-    out.print("</form></body></html>");
-    
+    try(PrintWriter out = response.getWriter()) {
+      out.print("<html><head></head><body>");
+      out.print("<h1>Login</h1>");
+      out.print("<form action=\"./login\" method=\"POST\">");
+      out.print("<label>Username: <input type=\"text\" name=\"username\"></label>");
+      out.print("<input type=\"submit\" value=\"Submit\">");
+      out.print("</form></body></html>");
+    }
   }
 
   /**
@@ -49,11 +48,8 @@ public class LoginServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
     
-    PrintWriter out = response.getWriter();
     HttpSession session = request.getSession();
-    
     String username = request.getParameter("username");
-    
     session.setAttribute("username", username);
     
     response.sendRedirect("./");
